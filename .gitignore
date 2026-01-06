@@ -2,3 +2,4 @@
 bin/
 .idea/
 /language_detector_oop_pwr.iml
+out/
