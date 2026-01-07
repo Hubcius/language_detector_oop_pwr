@@ -13,11 +13,14 @@ public class webScrapper
     {
         String currentLanguage = "en";
 
-        String pageId = getRandomPageId(currentLanguage);
-        String body = getWikiArticle(currentLanguage, pageId);
+        System.out.println(getData(currentLanguage));
+    }
 
-        System.out.println(pageId + " " + body);
-        parametrization(currentLanguage, pageId, body);
+    public static String getData(String language)
+    {
+        String pageId = getRandomPageId(language);
+        String body = getWikiArticle(language, pageId);
+        return parametrization(language, pageId, body);
     }
 
     private static String parametrization(String language, String pageId, String body)
@@ -33,60 +36,39 @@ public class webScrapper
                 i+=1;
                 continue;
             }
-            
-            //region check chars
-            if(body.codePointAt(i) == '=' ||
-               body.codePointAt(i) == ':' ||
-               body.codePointAt(i) == ' ' ||
-               body.codePointAt(i) == ')' ||
-               body.codePointAt(i) == '(' ||
-               body.codePointAt(i) == ']' ||
-               body.codePointAt(i) == '[' ||
-               body.codePointAt(i) == '}' ||
-               body.codePointAt(i) == '{' ||
-               body.codePointAt(i) == '\"' ||
-               body.codePointAt(i) == '\'' ||
-               body.codePointAt(i) == '|' ||
-               body.codePointAt(i) == '1' ||
-               body.codePointAt(i) == '2' ||
-               body.codePointAt(i) == '3' ||
-               body.codePointAt(i) == '4' ||
-               body.codePointAt(i) == '5' ||
-               body.codePointAt(i) == '6' ||
-               body.codePointAt(i) == '7' ||
-               body.codePointAt(i) == '8' ||
-               body.codePointAt(i) == '9' ||
-               body.codePointAt(i) == '0' ||
-               body.codePointAt(i) == '*' ||
-               body.codePointAt(i) == '-' ||
-               body.codePointAt(i) == '_' ||
-               body.codePointAt(i) == '&' ||
-               body.codePointAt(i) == '^' ||
-               body.codePointAt(i) == '%' ||
-               body.codePointAt(i) == '$' ||
-               body.codePointAt(i) == '#' ||
-               body.codePointAt(i) == '@' ||
-               body.codePointAt(i) == '!' ||
-               body.codePointAt(i) == '`' ||
-               body.codePointAt(i) == '~' ||
-               body.codePointAt(i) == '<' ||
-               body.codePointAt(i) == '>' ||
-               body.codePointAt(i) == '+' ||
-               body.codePointAt(i) == ';' ||
-               body.codePointAt(i) == '?' ||
-               body.codePointAt(i) == '.' ||
-               body.codePointAt(i) == ',')
+
+            if(body.codePointAt(i) == '\\' &&  body.codePointAt(i + 1) == 'u')
+            {
+                String unicode = body.substring(i, i + 6);
+                int code = Integer.parseInt(unicode.substring(2), 16);
+                char c = (char) code;
+                if(Character.isLetter(c))
+                {
+                    dict.merge(unicode, 1, Integer::sum);
+                    i+=5;
+                    continue;
+                }
+                else
+                {
+                    i+=5;
+                    continue;
+                }
+            }
+
+            if(body.codePointAt(i) < 65 || body.codePointAt(i) > 122 || (body.codePointAt(i) > 90 && body.codePointAt(i) < 97))
             {
                 continue;
             }
-            //endregion
 
-            res += (char)body.codePointAt(i);
+            //res += (char)body.codePointAt(i);
+            dict.merge(String.valueOf((char)body.codePointAt(i)).toLowerCase(), 1, Integer::sum);
         }
 
-        System.out.println(pageId + " " + res);
+        for (Map.Entry<String, Integer> entry : dict.entrySet()) {
+            res += entry.getKey() + ":" + entry.getValue() + ",";
+        }
 
-        return language + "#" + pageId + "#";
+        return language + "#" + pageId + "#" + res;
     }
 
     private static String getRandomPageId(String language)
