@@ -6,7 +6,7 @@ import java.util.*;
 
 public class webScrapper
 {
-    public static List<String> languageCodes = Arrays.asList("aa", "ab", "ace", "ady", "af", "ak", "als", "alt", "am", "ami", "an", "ang", "ann", "anp", "ar", "arc", "ary", "arz", "as", "ast", "atj", "av", "avk", "awa", "ay", "az", "azb", "ba", "ban", "bar", "bat-smg", "bbc", "bcl", "bdr", "be", "be-tarask", "be-x-old", "bew", "bg", "bh", "bi", "bjn", "blk", "bm", "bn", "bo", "bpy", "br", "bs", "btm", "bug", "bxr", "ca", "cbk-zam", "cdo", "ce", "ceb", "ch", "cho", "chr", "chy", "ckb", "co", "cr", "crh", "cs", "csb", "cu", "cv", "cy", "da", "dag", "de", "dga", "din", "diq", "dsb", "dtp", "dty", "dv", "dz", "ee", "el", "eml", "en", "eo", "es", "et", "eu", "ext", "fa", "fat", "ff", "fi", "fiu-vro", "fj", "fo", "fon", "fr", "frp", "frr", "fur", "fy", "ga", "gag", "gan", "gcr", "gd", "gl", "glk", "gn", "gom", "gor", "got", "gpe", "gsw", "gu", "guc", "gur", "guw", "gv", "ha", "hak", "haw", "he", "hi", "hif", "ho", "hr", "hsb", "ht", "hu", "hy", "hyw", "hz", "ia", "iba", "id", "ie", "ig", "igl", "ii", "ik", "ilo", "inh", "io", "is", "it", "iu", "ja", "jam", "jbo", "jv", "ka", "kaa", "kab", "kbd", "kbp", "kcg", "kg", "kge", "ki", "kj", "kk", "kl", "km", "kn", "knc", "ko", "koi", "kr", "krc", "ks", "ksh", "ku", "kus", "kv", "kw", "ky", "la", "lad", "lb", "lbe", "lez", "lfn", "lg", "li", "lij", "lld", "lmo", "ln", "lo", "lrc", "lt", "ltg", "lv", "lzh", "mad", "mai", "map-bms", "mdf", "mg", "mh", "mhr", "mi", "min", "mk", "ml", "mn", "mni", "mnw", "mo", "mos", "mr", "mrj", "ms", "mt", "mus", "mwl", "my", "myv", "mzn", "na", "nah", "nan", "nap", "nds", "nds-nl", "ne", "new", "ng", "nia", "nl", "nn", "no", "nov", "nqo", "nr", "nrm", "nso", "nup", "nv", "ny", "oc", "olo", "om", "or", "os", "pa", "pag", "pam", "pap", "pcd", "pcm", "pdc", "pfl", "pi", "pih", "pl", "pms", "pnb", "pnt", "ps", "pt", "pwn", "qu", "rki", "rm", "rmy", "rn", "ro", "roa-rup", "roa-tara", "rsk", "ru", "rue", "rup", "rw", "sa", "sah", "sat", "sc", "scn", "sco", "sd", "se", "sg", "sgs", "sh", "shi", "shn", "shy", "si", "simple", "sk", "skr", "sl", "sm", "smn", "sn", "so", "sq", "sr", "srn", "ss", "st", "stq", "su", "sv", "sw", "syl", "szl", "szy", "ta", "tay", "tcy", "tdd", "te", "tet", "tg", "th", "ti", "tig", "tk", "tl", "tly", "tn", "to", "tok", "tpi", "tr", "trv", "ts", "tt", "tum", "tw", "ty", "tyv", "udm", "ug", "uk", "ur", "uz", "ve", "vec", "vep", "vi", "vls", "vo", "vro", "wa", "war", "wo", "wuu", "xal", "xh", "xmf", "yi", "yo", "yue", "za", "zea", "zgh", "zh", "zh-classical", "zh-min-nan", "zh-yue", "zu");
+    public static List<String> languageCodes = Arrays.asList("ab", "ace", "ady", "af", "als", "alt", "am", "ami", "an", "ang", "ann", "anp", "ar", "arc", "ary", "arz", "as", "ast", "atj", "av", "avk", "awa", "ay", "az", "azb", "ba", "ban", "bar", "bat-smg", "bbc", "bcl", "bdr", "be", "be-tarask", "bew", "bg", "bh", "bi", "bjn", "blk", "bm", "bn", "bo", "bpy", "br", "bs", "btm", "bug", "bxr", "ca", "cbk-zam", "cdo", "ce", "ceb", "ch", "chr", "chy", "ckb", "co", "crh", "cs", "csb", "cu", "cv", "cy", "da", "dag", "de", "dga", "din", "diq", "dsb", "dtp", "dty", "dv", "dz", "ee", "el", "eml", "en", "eo", "es", "et", "eu", "ext", "fa", "fat", "ff", "fi", "fiu-vro", "fj", "fo", "fon", "fr", "frp", "frr", "fur", "fy", "ga", "gag", "gan", "gcr", "gd", "gl", "glk", "gn", "gom", "gor", "got", "gpe", "gu", "guc", "gur", "guw", "gv", "ha", "hak", "haw", "he", "hi", "hif", "hr", "hsb", "ht", "hu", "hy", "hyw", "ia", "iba", "id", "ie", "ig", "igl", "ik", "ilo", "inh", "io", "is", "it", "iu", "ja", "jam", "jbo", "jv", "ka", "kaa", "kab", "kbd", "kbp", "kcg", "kg", "kge", "ki", "kk", "km", "kn", "knc", "ko", "koi", "krc", "ks", "ksh", "ku", "kus", "kv", "kw", "ky", "la", "lad", "lb", "lbe", "lez", "lfn", "lg", "li", "lij", "lld", "lmo", "ln", "lo", "lt", "ltg", "lv", "lzh", "mad", "mai", "map-bms", "mdf", "mg", "mhr", "mi", "min", "mk", "ml", "mn", "mni", "mnw", "mo", "mos", "mr", "mrj", "ms", "mt", "mwl", "my", "myv", "mzn", "nah", "nan", "nap", "nds", "nds-nl", "ne", "new", "nia", "nl", "nn", "no", "nov", "nqo", "nr", "nrm", "nso", "nup", "nv", "ny", "oc", "olo", "om", "or", "os", "pa", "pag", "pam", "pap", "pcd", "pcm", "pdc", "pfl", "pi", "pl", "pms", "pnb", "pnt", "ps", "pt", "pwn", "qu", "rki", "rm", "rmy", "rn", "ro", "roa-rup", "roa-tara", "rsk", "ru", "rue", "rup", "rw", "sa", "sah", "sat", "sc", "scn", "sco", "sd", "se", "sg", "sgs", "sh", "shi", "shn", "shy", "si", "simple", "sk", "skr", "sl", "sm", "smn", "sn", "so", "sq", "sr", "srn", "ss", "st", "stq", "su", "sv", "sw", "syl", "szl", "szy", "ta", "tay", "tcy", "tdd", "te", "tet", "tg", "th", "ti", "tig", "tk", "tl", "tly", "tn", "to", "tok", "tpi", "tr", "trv", "ts", "tt", "tum", "tw", "ty", "tyv", "udm", "ug", "uk", "ur", "uz", "ve", "vec", "vep", "vi", "vls", "vo", "vro", "wa", "war", "wo", "wuu", "xal", "xh", "xmf", "yi", "yo", "yue", "za", "zea", "zgh", "zh", "zh-classical", "zh-min-nan", "zh-yue", "zu");
     public static Map<String, String> localNames = new HashMap<String, String>();
 
     public static void initializeLanguages()
@@ -413,26 +413,67 @@ public class webScrapper
         System.out.println(code);
     }
 
+    public static void checkLanguage()
+    {
+        String currentLanguage = "cu";
+        String pageId = getRandomPageId(currentLanguage);
+        System.out.println(pageId);
+        String body = getWikiArticle(currentLanguage, pageId);
+        System.out.println(pageId + " " + body);
+        System.out.println(getData(currentLanguage));
+    }
+
     public static void scrapper()
     {
         initializeLanguages();
-        //String currentLanguage = "en";
+        //checkLanguage();
+        scrapWikipedia(1);
 
-        //System.out.println(getData(currentLanguage));
         //getAllLanguages();
+    }
+
+
+
+    public static void scrapWikipedia(int articlesPerLanguage)
+    {
+        for (int i = 0; i < languageCodes.size(); i++)
+        {
+            String body = getData(languageCodes.get(i));
+            if(body.charAt(0) == '0' &&  body.charAt(1) == '#')
+            {
+                continue;
+            }
+            System.out.println(body);
+            wait(800);
+        }
+    }
+
+    private static void wait(int ms)
+    {
+        try
+        {
+            Thread.sleep(ms);
+        }
+        catch (InterruptedException e)
+        {
+            throw new RuntimeException(e);
+        }
     }
 
     public static String getData(String language)
     {
         String pageId = getRandomPageId(language);
+        //System.out.println(pageId);
         String body = getWikiArticle(language, pageId);
+        //System.out.println(pageId + " " + body.length());
+
         return parametrization(language, pageId, body);
     }
 
     private static String parametrization(String language, String pageId, String body)
     {
         Map<String, Integer> dict = new HashMap<>();
-
+        body += "----------";
         String res = "";
 
         for (int i = 0; i < body.length(); i++)
@@ -448,9 +489,10 @@ public class webScrapper
                 String unicode = body.substring(i, i + 6);
                 int code = Integer.parseInt(unicode.substring(2), 16);
                 char c = (char) code;
+                String s = "" + c;
                 if(Character.isLetter(c))
                 {
-                    dict.merge(unicode, 1, Integer::sum);
+                    dict.merge(s, 1, Integer::sum);
                     i+=5;
                     continue;
                 }
@@ -493,6 +535,10 @@ public class webScrapper
     {
         int start = str.indexOf(left) + left.length();
         int end = str.indexOf(right, start);
+        if (end == -1)
+        {
+            return "0";
+        }
         return str.substring(start, end);
     }
 
@@ -513,6 +559,7 @@ public class webScrapper
         }
         catch (Exception e)
         {
+
             return "0 " + e.getMessage();
         }
     }
