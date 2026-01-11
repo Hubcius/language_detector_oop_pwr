@@ -427,8 +427,10 @@ public class webScrapper
     {
         initializeLanguages();
         //checkLanguage();
-        scrapWikipedia(1);
-
+        //scrapWikipedia(1);
+        System.out.println(getData("en"));
+        System.out.println(getData("en"));
+        System.out.println(getData("en"));
         //getAllLanguages();
     }
 
@@ -489,9 +491,10 @@ public class webScrapper
                 String unicode = body.substring(i, i + 6);
                 int code = Integer.parseInt(unicode.substring(2), 16);
                 char c = (char) code;
-                String s = "" + c;
                 if(Character.isLetter(c))
                 {
+                    char lowerCaseChar = Character.toLowerCase(c);
+                    String s = "" + lowerCaseChar;
                     dict.merge(s, 1, Integer::sum);
                     i+=5;
                     continue;
