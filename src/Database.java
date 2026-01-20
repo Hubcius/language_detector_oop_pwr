@@ -2,7 +2,7 @@ import java.sql.*;
 
 public class Database {
     static String url = "jdbc:sqlite:language_database.db"; 
-    public Database() {
+    public static void database_initialize() {
         try(Connection conn = DriverManager.getConnection(url)) {
             if (conn != null) {
                 String creat_pages =
@@ -14,7 +14,7 @@ public class Database {
                     "CREATE TABLE IF NOT EXISTS LettersAmount (" +
                     "page_id TEXT, " +
                     "letter TEXT, " +
-                    "amount INTEGER, " +
+                    "percentage_amount Double, " +
                     "PRIMARY KEY (page_id, letter), " +
                     "FOREIGN KEY (page_id) REFERENCES Task(page_id))";
 
@@ -42,19 +42,24 @@ public class Database {
             if(ret != 0){
 
                 String insert_LettersAmount =
-                    "INSERT INTO LettersAmount(page_id, letter, amount) " +
+                    "INSERT INTO LettersAmount(page_id, letter, percentage_amount) " +
                     "VALUES (?, ?, ?)";
                 PreparedStatement lettersAmount_stmt = conn.prepareStatement(insert_LettersAmount);
 
                 String [] letters = data[2].split(",");
+                double sum_of_letters = 0;
+                for (String l : letters) {
+                    String[] parts = l.split(":");
+                    sum_of_letters += Double.parseDouble(parts[1]);
+                }
                 for (String l : letters) {
                     String[] parts = l.split(":");
                     String letter = parts[0];
-                    int amount = Integer.parseInt(parts[1]);
+                    Double amount = Double.parseDouble(parts[1]);
 
                     lettersAmount_stmt.setString(1, data[0]);
                     lettersAmount_stmt.setString(2, letter);
-                    lettersAmount_stmt.setInt(3, amount);
+                    lettersAmount_stmt.setDouble(3, amount/sum_of_letters);
                     lettersAmount_stmt.executeUpdate();
                 }
             } 
@@ -75,7 +80,7 @@ public class Database {
             rs.next();
             String no_of_pages = rs.getString("no_of_pages");
             result_of_method += no_of_pages +"#";
-            String get_sum_of_letters = "SELECT language_name, letter, SUM(amount) AS amount_of_letters, SUM(amount * amount) AS squared_amount_of_letters " +
+            String get_sum_of_letters = "SELECT language_name, letter, AVG(percentage_amount) AS avg_percentage_amount_of_letters, SUM(percentage_amount * percentage_amount) AS sum_squared_percentage_amount_of_letters " +
                 "FROM Pages " +
                 "INNER JOIN LettersAmount ON Pages.page_id = LettersAmount.page_id " +
                 "WHERE language_name = '"+ language + "' " +
@@ -83,7 +88,7 @@ public class Database {
             
             rs = stmt.executeQuery(get_sum_of_letters);
             while(rs.next()){
-                result_of_method += rs.getString("letter") + "," + rs.getString("amount_of_letters") + "," + rs.getString("squared_amount_of_letters") + ";";
+                result_of_method += rs.getString("letter") + "," + rs.getString("avg_percentage_amount_of_letters") + "," + rs.getString("sum_squared_percentage_amount_of_letters") + ";";
             }
         } catch (SQLException e) {
             e.printStackTrace();
