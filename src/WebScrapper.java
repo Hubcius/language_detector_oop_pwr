@@ -462,7 +462,6 @@ public class WebScrapper
         }
         isRunning = true;
         WebScrapperGui.addLog("Parametrization history");
-        Database db = new Database();
         //wait(1000);
         for(int i = 0; i < articlesPerLanguage; i++)
         {
@@ -515,6 +514,7 @@ public class WebScrapper
         Map<String, Integer> dict = new HashMap<>();
         body += "----------";
         String res = "";
+        System.out.println(body);
 
         for (int i = 0; i < body.length(); i++)
         {
