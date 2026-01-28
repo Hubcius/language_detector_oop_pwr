@@ -80,7 +80,7 @@ public class Database {
             rs.next();
             String no_of_pages = rs.getString("no_of_pages");
             result_of_method += no_of_pages +"#";
-            String get_sum_of_letters = "SELECT language_name, letter, AVG(percentage_amount) AS avg_percentage_amount_of_letters, SUM(percentage_amount * percentage_amount) AS sum_squared_percentage_amount_of_letters " +
+            String get_sum_of_letters = "SELECT language_name, letter, SUM(percentage_amount) AS sum_percentage_amount_of_letters, SUM(percentage_amount * percentage_amount) AS sum_squared_percentage_amount_of_letters " +
                 "FROM Pages " +
                 "INNER JOIN LettersAmount ON Pages.page_id = LettersAmount.page_id " +
                 "WHERE language_name = '"+ language + "' " +
@@ -88,7 +88,7 @@ public class Database {
             
             rs = stmt.executeQuery(get_sum_of_letters);
             while(rs.next()){
-                result_of_method += rs.getString("letter") + "," + rs.getString("avg_percentage_amount_of_letters") + "," + rs.getString("sum_squared_percentage_amount_of_letters") + ";";
+                result_of_method += rs.getString("letter") + "," + (Double.parseDouble(rs.getString("avg_percentage_amount_of_letters"))/Double.parseDouble(no_of_pages)) + "," + rs.getString("sum_squared_percentage_amount_of_letters") + ";";
             }
         } catch (SQLException e) {
             e.printStackTrace();

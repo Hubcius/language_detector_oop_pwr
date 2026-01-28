@@ -385,7 +385,7 @@ public class WebScrapper
     public static void getAllLanguages()
     {
         String body = getUrlData("https://commons.wikimedia.org/w/api.php?action=sitematrix&smtype=language&format=json");
-        System.out.println(body);
+        //System.out.println(body);
         String code = "";
         for (int i = 0; i < body.length() - 3; i++)
         {
@@ -411,7 +411,7 @@ public class WebScrapper
                 code += "\"); \n";
             }
         }
-        System.out.println(code);
+        //System.out.println(code);
     }
 
     public static void checkLanguage()
@@ -420,8 +420,8 @@ public class WebScrapper
         String pageId = getRandomPageId(currentLanguage);
         System.out.println(pageId);
         String body = getWikiArticle(currentLanguage, pageId);
-        System.out.println(pageId + " " + body);
-        System.out.println(getData(currentLanguage));
+        //System.out.println(pageId + " " + body);
+        //System.out.println(getData(currentLanguage));
     }
 
     public static void scrapper()
@@ -456,7 +456,7 @@ public class WebScrapper
                 {
                     continue;
                 }
-                System.out.println(body);
+                //System.out.println(body);
                 Database.add_data(body);
 
                 long endTime = System.currentTimeMillis();    // Koniec pomiaru
@@ -501,7 +501,7 @@ public class WebScrapper
         Map<String, Integer> dict = new HashMap<>();
         body += "----------";
         String res = "";
-        System.out.println(body);
+        //System.out.println(body);
 
         for (int i = 0; i < body.length(); i++)
         {
@@ -531,10 +531,10 @@ public class WebScrapper
                 }
             }
 
-            if(body.codePointAt(i) < 65 || body.codePointAt(i) > 122 || (body.codePointAt(i) > 90 && body.codePointAt(i) < 97))
-            {
-                continue;
-            }
+            if(!Character.isLetter((char)body.codePointAt(i)))
+                {
+                    continue;
+                }
 
             //res += (char)body.codePointAt(i);
             dict.merge(String.valueOf((char)body.codePointAt(i)).toLowerCase(), 1, Integer::sum);
