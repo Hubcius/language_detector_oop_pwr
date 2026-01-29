@@ -1,7 +1,7 @@
 import java.sql.*;
 
 public class Database {
-    static String url = "jdbc:sqlite:language_database.db"; 
+    static String url = "jdbc:sqlite:language_database.db";
     public static void database_initialize() {
         try(Connection conn = DriverManager.getConnection(url)) {
             if (conn != null) {

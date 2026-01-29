@@ -8,6 +8,7 @@ public class App {
         Database.database_initialize();
         WebScrapperGui.scrapperGui();
         WebScrapper.scrapper();
+        ResultGui.DisplayResult("pl,1;pl,0.3;");//code,liczba;
     }
 
     public static void query_language(String letters_and_percentage){
@@ -19,7 +20,6 @@ public class App {
                 System.out.println(Statistics.pearson_test(lang_stats, letters_and_percentage));
             }
         }
-        System.out.println("1");
     }
 
 
