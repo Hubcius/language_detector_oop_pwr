@@ -27,7 +27,7 @@ public class Statistics {
             Character ch = letter_and_percentage[0].charAt(0);
             Double text_percentage_amount = Double.parseDouble(letter_and_percentage[1]);
             Double avg_percentage = 2.0;
-            Double letter_standard_deviation = 0.0000001;
+            Double letter_standard_deviation = 0.001;
             if(language_letter_avg_percentage.containsKey(ch)){
                 avg_percentage = language_letter_avg_percentage.get(ch);
                 letter_standard_deviation = language_letter_standard_devation.get(ch);

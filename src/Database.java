@@ -88,7 +88,7 @@ public class Database {
             
             rs = stmt.executeQuery(get_sum_of_letters);
             while(rs.next()){
-                result_of_method += rs.getString("letter") + "," + (Double.parseDouble(rs.getString("avg_percentage_amount_of_letters"))/Double.parseDouble(no_of_pages)) + "," + rs.getString("sum_squared_percentage_amount_of_letters") + ";";
+                result_of_method += rs.getString("letter") + "," + (Double.parseDouble(rs.getString("sum_percentage_amount_of_letters"))/Double.parseDouble(no_of_pages)) + "," + rs.getString("sum_squared_percentage_amount_of_letters") + ";";
             }
         } catch (SQLException e) {
             e.printStackTrace();
