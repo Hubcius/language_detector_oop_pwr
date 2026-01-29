@@ -2,6 +2,7 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.text.Normalizer;
 import java.util.*;
 
 public class WebScrapper
@@ -446,7 +447,7 @@ public class WebScrapper
         {
             return;
         }
-        System.out.println(body);
+        //System.out.println(body);
         if(body.charAt(body.length() - 1) == '#')
         {
             return;
@@ -504,9 +505,9 @@ public class WebScrapper
     {
         String pageId = getRandomPageId(language);
         wait(waitTime);
-        System.out.println(pageId);
+        //System.out.println(pageId);
         String body = getWikiArticle(language, pageId);
-        System.out.println(pageId + " " + body.length());
+        //System.out.println(pageId + " " + body.length());
         String tmp = body;
         if(tmp.trim().isEmpty())
         {
@@ -520,7 +521,7 @@ public class WebScrapper
         Map<String, Integer> dict = new HashMap<>();
         body += "----------";
         String res = "";
-        System.out.println(body);
+        //System.out.println(body);
 
         for (int i = 0; i < body.length(); i++)
         {
@@ -532,22 +533,27 @@ public class WebScrapper
 
             if(body.codePointAt(i) == '\\' &&  body.codePointAt(i + 1) == 'u')
             {
-                String unicode = body.substring(i, i + 6);
-                int code = Integer.parseInt(unicode.substring(2), 16);
-                char c = (char) code;
-                if(Character.isLetter(c))
+                String unicode = body.substring(i + 2, i + 6);
+                if(unicode.matches("[0-9a-fA-F]{4}"))
                 {
-                    char lowerCaseChar = Character.toLowerCase(c);
-                    String s = "" + lowerCaseChar;
-                    dict.merge(s, 1, Integer::sum);
-                    i+=5;
-                    continue;
+                    int code = Integer.parseInt(unicode, 16);
+                    char c = (char) code;
+                    if(Character.isLetter(c))
+                    {
+                        char lowerCaseChar = Character.toLowerCase(c);
+                        String s = "" + lowerCaseChar;
+                        dict.merge(s, 1, Integer::sum);
+                        i+=5;
+                        continue;
+                    }
+                    else
+                    {
+                        i+=5;
+                        continue;
+                    }
                 }
-                else
-                {
-                    i+=5;
-                    continue;
-                }
+
+
             }
 
             if(!Character.isLetter((char)body.codePointAt(i)))
@@ -567,6 +573,9 @@ public class WebScrapper
         for (Map.Entry<String, Integer> entry : dict.entrySet()) {
             res += entry.getKey() + ":" + entry.getValue() + ",";
         }
+        System.out.println(body);
+        System.out.println(body.length());
+        System.out.println(res);
 
         return pageId + "#" + language + "#" + res;
     }

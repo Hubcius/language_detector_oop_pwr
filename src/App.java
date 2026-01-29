@@ -9,9 +9,7 @@ public class App {
         Database.database_initialize();
         WebScrapper.scrapper();
         WebScrapperGui.scrapperGui();
-        ResultGui.DisplayResult("");
-        double f = 432;
-        String t = "" + f + "dgfdh";
+        ResultGui.DisplayResult("pl,1;pl,0.3;");//code,liczba;
     }
 
     public static void query_language(String letters_and_percentage){
