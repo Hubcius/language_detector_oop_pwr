@@ -109,7 +109,7 @@ public class WebScrapperGui
         c2.setBounds(500, 70, 200, 30);
         c2.addActionListener(e -> DisplayStats());
         frame.add(c2);
-        DisplayStats();
+        //SwingUtilities.invokeLater(() -> DisplayStats());
 
 
         frame.repaint();
