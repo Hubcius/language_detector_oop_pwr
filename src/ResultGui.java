@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class ResultGui
@@ -12,6 +13,7 @@ public class ResultGui
 
     public static void DisplayResult(String result)
     {
+        System.out.println("Result: " + result);
         frame = new JFrame("Results");
         frame.setSize(400 + 200, 700);
         frame.setLayout(null);
@@ -30,11 +32,13 @@ public class ResultGui
         //AddPanel("aaaa", 0.5);
 
         String[] body = result.split(";");
+        Collections.reverse(Arrays.asList(body));
 
         List<String> languages = new ArrayList<>();
         List<Double> scores = new ArrayList<>();
 
         double sum = 0.0;
+        double max = 0.0;
 
         for(String s : body)
         {
@@ -42,6 +46,7 @@ public class ResultGui
             {
                 String[] parts = s.split(",");
                 sum += Double.parseDouble(parts[1]);
+
                 //AddPanel(WebScrapper.localNames.get(parts[0]), Double.parseDouble(parts[1]));
             }
         }
@@ -51,8 +56,19 @@ public class ResultGui
             if(s.length() > 0)
             {
                 String[] parts = s.split(",");
-                AddPanel(WebScrapper.localNames.get(parts[0]), Double.parseDouble(parts[1]) / sum);
-                System.out.println(Double.parseDouble(parts[1]) / sum);
+                max =  Math.max(1/ (Double.parseDouble(parts[1]) / sum), max);
+            }
+        }
+
+
+
+        for(String s : body)
+        {
+            if(s.length() > 0)
+            {
+                String[] parts = s.split(",");
+                AddPanel(WebScrapper.localNames.get(parts[0]), (1/ (Double.parseDouble(parts[1]) / sum)) / max);
+                System.out.println((1 / (Double.parseDouble(parts[1]) / sum)) / max);
             }
         }
     }
